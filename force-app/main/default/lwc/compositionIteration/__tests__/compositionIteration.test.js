@@ -17,9 +17,8 @@ describe('c-composition-iteration', () => {
         document.body.appendChild(element);
 
         // Select rendered contact tile elements for length check
-        const contactTileEls = element.shadowRoot.querySelectorAll(
-            'c-contact-tile'
-        );
+        const contactTileEls =
+            element.shadowRoot.querySelectorAll('c-contact-tile');
         expect(contactTileEls.length).toBe(3);
     });
 
@@ -42,13 +41,13 @@ describe('c-composition-iteration', () => {
         expect(contactTileNames).toEqual(CONTACT_LIST_EXPECTED);
     });
 
-    it('is accessible on initialization', () => {
+    it('is accessible on initialization', async () => {
         const element = createElement('c-composition-iteration', {
             is: CompositionIteration
         });
 
         document.body.appendChild(element);
 
-        return Promise.resolve().then(() => expect(element).toBeAccessible());
+        await expect(element).toBeAccessible();
     });
 });

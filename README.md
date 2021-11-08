@@ -1,6 +1,6 @@
 # Lightning Web Components Recipes
 
-[![Github Workflow](<https://github.com/trailheadapps/lwc-recipes/workflows/Salesforce%20DX%20(scratch%20org)/badge.svg?branch=master>)](https://github.com/trailheadapps/lwc-recipes/actions?query=workflow%3A%22Salesforce+DX+%28scratch+org%29%22) [![Github Workflow](https://github.com/trailheadapps/lwc-recipes/workflows/Packaging/badge.svg?branch=master)](https://github.com/trailheadapps/lwc-recipes/actions?query=workflow%3A%22Packaging%22) [![codecov](https://codecov.io/gh/trailheadapps/lwc-recipes/branch/master/graph/badge.svg)](https://codecov.io/gh/trailheadapps/lwc-recipes)
+[![CI Workflow](https://github.com/trailheadapps/lwc-recipes/workflows/CI/badge.svg)](https://github.com/trailheadapps/lwc-recipes/actions?query=workflow%3ACI) [![Packaging Workflow](https://github.com/trailheadapps/lwc-recipes/workflows/Packaging/badge.svg)](https://github.com/trailheadapps/lwc-recipes/actions?query=workflow%3A%22Packaging%22) [![codecov](https://codecov.io/gh/trailheadapps/lwc-recipes/branch/main/graph/badge.svg)](https://codecov.io/gh/trailheadapps/lwc-recipes)
 
 ![recipes-logo](recipes-logo.png)
 
@@ -40,7 +40,7 @@ A collection of easy-to-digest code examples for Lightning Web Components. Each 
 1. If you haven't already done so, authorize your hub org and provide it with an alias (**myhuborg** in the command below):
 
     ```
-    sfdx force:auth:web:login -d -a myhuborg
+    sfdx auth:web:login -d -a myhuborg
     ```
 
 1. Clone the lwc-recipes repository:
@@ -92,13 +92,13 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 
 1. Log in to your org
 
-1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3t000002kqRdAAI) to install the Recipes unlocked package in your org.
+1. Click [this link](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3t000001sOI9AAM) to install the Recipes unlocked package in your org.
 
 1. Select **Install for All Users**
 
 1. Import Account and Contacts data:
 
-    - Click [here](https://raw.githubusercontent.com/trailheadapps/lwc-recipes/master/data/Accounts-Contacts.csv) to access the **Accounts-Contacts.csv** file. Right click on the browser window and save the file as **Accounts-Contacts.csv**.
+    - Click [here](https://raw.githubusercontent.com/trailheadapps/lwc-recipes/main/data/Accounts-Contacts.csv) to access the **Accounts-Contacts.csv** file. Right click on the browser window and save the file as **Accounts-Contacts.csv**.
     - In **Setup**, type **Data Import** in the Quick Find box and click **Data Import Wizard**.
     - Click **Launch Wizard**.
     - Click **Accounts and Contacts**, and click **Add New Records**.
@@ -133,7 +133,7 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 1. Authorize your Trailhead Playground or Developer org and provide it with an alias (**mydevorg** in the command below):
 
     ```
-    sfdx force:auth:web:login -s -a mydevorg
+    sfdx auth:web:login -s -a mydevorg
     ```
 
 1. Run this command in a terminal to deploy the app.
@@ -146,14 +146,6 @@ Make sure to start from a brand-new environment to avoid conflicts with previous
 
     ```
     sfdx force:user:permset:assign -n recipes
-    ```
-
-1. (Optional) Assign the `Walkthroughs` permission set to the default user.
-
-> Note: this will enable In App Guidance Walkthroughs, allowing you to be taken through a guided tour of the sample app.
-
-    ```
-    sfdx force:user:permset:assign -n Walkthroughs
     ```
 
 1. Import some sample data.
@@ -196,7 +188,7 @@ To set up the formatting and linting pre-commit hook:
 Prettier and ESLint will now run automatically every time you commit changes. The commit will fail if linting errors are detected. You can also run the formatting and linting from the command line using the following commands (check out [package.json](./package.json) for the full list):
 
 ```
-npm run lint:lwc
+npm run lint
 npm run prettier
 ```
 

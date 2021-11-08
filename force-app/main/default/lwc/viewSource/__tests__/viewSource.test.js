@@ -11,7 +11,7 @@ describe('c-view-source', () => {
 
     it('renders an a href that points to the LWC Recipes GitHub repo', () => {
         const BASE_URL =
-            'https://github.com/trailheadapps/lwc-recipes/tree/master/force-app/main/default/';
+            'https://github.com/trailheadapps/lwc-recipes/tree/main/force-app/main/default/';
         const LWC_PARAMETER = 'superLwc';
         const RESULT = BASE_URL + LWC_PARAMETER;
 
@@ -28,13 +28,13 @@ describe('c-view-source', () => {
         expect(linkEl.href).toBe(RESULT);
     });
 
-    it('is accessible', () => {
+    it('is accessible', async () => {
         const element = createElement('c-view-source', {
             is: ViewSource
         });
 
         document.body.appendChild(element);
 
-        return Promise.resolve().then(() => expect(element).toBeAccessible());
+        await expect(element).toBeAccessible();
     });
 });

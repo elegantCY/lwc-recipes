@@ -1,15 +1,16 @@
-import { createElement } from 'lwc';
-import MiscPermissionBasedUI from 'c/miscPermissionBasedUI';
-import hasAccessRestrictedUI from '@salesforce/customPermission/accessRestrictedUIPermission';
+const lwcModulePath = 'lwc';
+const miscPermissionBasedUIModulePath = 'c/miscPermissionBasedUI';
 
 // Mocking custom permission module
+const mockModule = {
+    __esModule: true
+};
+
+const mockPermission = jest.fn();
+
 jest.mock(
     '@salesforce/customPermission/accessRestrictedUIPermission',
-    () => {
-        return {
-            default: jest.fn()
-        };
-    },
+    () => mockPermission(),
     { virtual: true }
 );
 
@@ -19,55 +20,124 @@ describe('c-misc-permission-based-u-i', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        jest.clearAllMocks();
     });
 
-    it('displays the correct UI when custom permission is true', () => {
-        const element = createElement('c-misc-permission-based-u-i', {
-            is: MiscPermissionBasedUI
+    // Helper function to wait until the microtask queue is empty. This is needed for promise
+    // timing when calling imperative Apex.
+    async function flushPromises() {
+        return Promise.resolve();
+    }
+
+    function createIsolatedElement(tagName, options, modulePath) {
+        let createElement;
+        let module;
+
+        jest.isolateModules(() => {
+            createElement = require(lwcModulePath).createElement;
+            module = require(modulePath).default;
         });
 
-        hasAccessRestrictedUI.mockReturnValueOnce(true);
+        return createElement(tagName, {
+            ...options,
+            is: module
+        });
+    }
+
+    it('displays the correct UI when custom permission is true', async () => {
+        mockPermission.mockReturnValueOnce({
+            ...mockModule,
+            default: true
+        });
+
+        const element = createIsolatedElement(
+            'c-misc-permission-based-u-i',
+            {},
+            miscPermissionBasedUIModulePath
+        );
 
         document.body.appendChild(element);
+
+        // Wait for any asynchronous DOM updates
+        await flushPromises();
 
         const pEl = element.shadowRoot.querySelector('p');
         expect(pEl.textContent).toBe('The permission set is assigned');
     });
 
-    it('displays the correct UI when custom permission is undefined', () => {
-        const element = createElement('c-misc-permission-based-u-i', {
-            is: MiscPermissionBasedUI
+    it('displays the correct UI when custom permission is undefined', async () => {
+        mockPermission.mockReturnValueOnce({
+            ...mockModule,
+            default: undefined
         });
 
-        hasAccessRestrictedUI.mockReturnValueOnce(undefined);
+        const element = createIsolatedElement(
+            'c-misc-permission-based-u-i',
+            {},
+            miscPermissionBasedUIModulePath
+        );
 
         document.body.appendChild(element);
+
+        // Wait for any asynchronous DOM updates
+        await flushPromises();
 
         const pEl = element.shadowRoot.querySelector('p');
-        expect(pEl.textContent).toBe('The permission set is assigned');
+        expect(pEl.textContent).toBe('The permission set is not assigned');
     });
 
-    it('is accessible when custom permission is true', () => {
-        const element = createElement('c-misc-permission-based-u-i', {
-            is: MiscPermissionBasedUI
+    it('displays the correct UI when custom permission is false', async () => {
+        mockPermission.mockReturnValueOnce({
+            ...mockModule,
+            default: false
         });
 
-        hasAccessRestrictedUI.mockReturnValueOnce(true);
+        const element = createIsolatedElement(
+            'c-misc-permission-based-u-i',
+            {},
+            miscPermissionBasedUIModulePath
+        );
 
         document.body.appendChild(element);
 
-        return Promise.resolve().then(() => expect(element).toBeAccessible());
+        // Wait for any asynchronous DOM updates
+        await flushPromises();
+
+        const pEl = element.shadowRoot.querySelector('p');
+        expect(pEl.textContent).toBe('The permission set is not assigned');
     });
 
-    it('is accessible when custom permission is false', () => {
-        const element = createElement('c-misc-permission-based-u-i', {
-            is: MiscPermissionBasedUI
+    it('is accessible when custom permission is true', async () => {
+        mockPermission.mockReturnValueOnce({
+            ...mockModule,
+            default: true
         });
 
-        hasAccessRestrictedUI.mockReturnValueOnce(undefined);
+        const element = createIsolatedElement(
+            'c-misc-permission-based-u-i',
+            {},
+            miscPermissionBasedUIModulePath
+        );
 
         document.body.appendChild(element);
 
-        return Promise.resolve().then(() => expect(element).toBeAccessible());
+        await expect(element).toBeAccessible();
+    });
+
+    it('is accessible when custom permission is false', async () => {
+        mockPermission.mockReturnValueOnce({
+            ...mockModule,
+            default: undefined
+        });
+
+        const element = createIsolatedElement(
+            'c-misc-permission-based-u-i',
+            {},
+            miscPermissionBasedUIModulePath
+        );
+
+        document.body.appendChild(element);
+
+        await expect(element).toBeAccessible();
     });
 });
