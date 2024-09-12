@@ -11,6 +11,8 @@ describe('c-nav-to-hello-tab', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        // Reset the navigation mock between tests
+        jest.clearAllMocks();
     });
 
     // Helper function to wait until the microtask queue is empty. This is needed for promise
@@ -47,9 +49,9 @@ describe('c-nav-to-hello-tab', () => {
         const element = createElement('c-nav-to-hello-tab', {
             is: NavToHelloTab
         });
-
         document.body.appendChild(element);
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });

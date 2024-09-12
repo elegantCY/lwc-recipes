@@ -4,6 +4,10 @@
         <application>LWC_Recipes</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <applicationVisibilities>
+        <application>LWC_Recipes_Console_App</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>AccountController</apexClass>
         <enabled>true</enabled>
@@ -185,6 +189,10 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Dynamic_Interactions</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Events</tab>
         <visibility>Visible</visibility>
     </tabSettings>
@@ -213,7 +221,27 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Refresh_View</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Styling</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Wire</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Workspace_API</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Workspace_API_Tab_Launcher</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>GraphQL</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
@@ -221,7 +249,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
-        <tab>Dynamic_Interactions</tab>
+        <tab>Record_Picker</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

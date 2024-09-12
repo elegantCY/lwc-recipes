@@ -11,6 +11,8 @@ describe('c-nav-to-files-home', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        // Reset the navigation mock between tests
+        jest.clearAllMocks();
     });
 
     // Helper function to wait until the microtask queue is empty. This is needed for promise
@@ -38,9 +40,8 @@ describe('c-nav-to-files-home', () => {
         const buttonEl = element.shadowRoot.querySelector('lightning-button');
         buttonEl.click();
 
-        const { pageReference } = getNavigateCalledWith();
-
         // Verify component called with correct event type and params
+        const { pageReference } = getNavigateCalledWith();
         expect(pageReference.type).toBe(NAV_TYPE);
         expect(pageReference.attributes.objectApiName).toBe(
             NAV_OBJECT_API_NAME
@@ -52,9 +53,9 @@ describe('c-nav-to-files-home', () => {
         const element = createElement('c-nav-to-files-home', {
             is: NavToFilesHome
         });
-
         document.body.appendChild(element);
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });

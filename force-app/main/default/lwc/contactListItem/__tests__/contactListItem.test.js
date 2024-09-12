@@ -8,7 +8,7 @@ const CONTACT = {
     Phone: '4152568563',
     Email: 'amy@demo.net',
     Picture__c:
-        'https://s3-us-west-1.amazonaws.com/sfdc-demo/people/amy_taylor.jpg'
+        'https://s3-us-west-2.amazonaws.com/dev-or-devrl-s3-bucket/sample-apps/people/amy_taylor.jpg'
 };
 
 describe('c-contact-list-item', () => {
@@ -20,7 +20,7 @@ describe('c-contact-list-item', () => {
     });
 
     it('shows contact name and image based on public property', () => {
-        // Create initial element
+        // Create component
         const element = createElement('c-contact-list-item', {
             is: ContactListItem
         });
@@ -38,7 +38,7 @@ describe('c-contact-list-item', () => {
     it('fires select event when clicked', () => {
         const mockSelectHandler = jest.fn();
 
-        // Create initial element
+        // Create component
         const element = createElement('c-contact-list-item', {
             is: ContactListItem
         });
@@ -64,6 +64,7 @@ describe('c-contact-list-item', () => {
         element.contact = CONTACT;
         document.body.appendChild(element);
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });

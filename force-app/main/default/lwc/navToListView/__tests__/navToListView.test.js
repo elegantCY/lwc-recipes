@@ -11,6 +11,8 @@ describe('c-nav-to-list-view', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        // Reset the navigation mock between tests
+        jest.clearAllMocks();
     });
 
     // Helper function to wait until the microtask queue is empty. This is needed for promise
@@ -54,9 +56,9 @@ describe('c-nav-to-list-view', () => {
         const element = createElement('c-nav-to-list-view', {
             is: NavToListView
         });
-
         document.body.appendChild(element);
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });

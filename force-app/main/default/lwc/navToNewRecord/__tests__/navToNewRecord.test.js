@@ -11,6 +11,8 @@ describe('c-nav-to-new-record', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        // Reset the navigation mock between tests
+        jest.clearAllMocks();
     });
 
     // Helper function to wait until the microtask queue is empty. This is needed for promise
@@ -52,9 +54,9 @@ describe('c-nav-to-new-record', () => {
         const element = createElement('c-nav-to-new-record', {
             is: NavToNewRecord
         });
-
         document.body.appendChild(element);
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });

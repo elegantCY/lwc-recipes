@@ -38,7 +38,7 @@ describe('c-lms-publisher-web-component', () => {
 
     describe('getContactList @wire', () => {
         it('renders data of one record when it is returned', async () => {
-            // Create initial element
+            // Create component
             const element = createElement('c-lms-publisher-web-component', {
                 is: LmsPublisherWebComponent
             });
@@ -66,12 +66,12 @@ describe('c-lms-publisher-web-component', () => {
             Phone: '4152568563',
             Email: 'amy@demo.net',
             Picture__c:
-                'https://s3-us-west-1.amazonaws.com/sfdc-demo/people/amy_taylor.jpg'
+                'https://s3-us-west-2.amazonaws.com/dev-or-devrl-s3-bucket/sample-apps/people/amy_taylor.jpg'
         };
 
         const PAYLOAD = { recordId: CONTACT.Id };
 
-        // Create initial element
+        // Create component
         const element = createElement('c-lms-publisher-web-component', {
             is: LmsPublisherWebComponent
         });
@@ -104,7 +104,7 @@ describe('c-lms-publisher-web-component', () => {
     });
 
     it('is accessible when data is returned', async () => {
-        // Create initial element
+        // Create component
         const element = createElement('c-lms-publisher-web-component', {
             is: LmsPublisherWebComponent
         });
@@ -116,6 +116,7 @@ describe('c-lms-publisher-web-component', () => {
         // Wait for any asynchronous DOM updates
         await flushPromises();
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });

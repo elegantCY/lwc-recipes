@@ -30,6 +30,8 @@ describe('c-nav-to-related-list', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
+        // Reset the navigation mock between tests
+        jest.clearAllMocks();
     });
 
     // Helper function to wait until the microtask queue is empty. This is needed for promise
@@ -90,6 +92,7 @@ describe('c-nav-to-related-list', () => {
         // Wait for any asynchronous DOM updates
         await flushPromises();
 
+        // Check for error panel
         const errorPanelEl = element.shadowRoot.querySelector('c-error-panel');
         expect(errorPanelEl).not.toBeNull();
     });
@@ -107,6 +110,7 @@ describe('c-nav-to-related-list', () => {
         // Wait for any asynchronous DOM updates
         await flushPromises();
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 
@@ -123,6 +127,7 @@ describe('c-nav-to-related-list', () => {
         // Wait for any asynchronous DOM updates
         await flushPromises();
 
+        // Check accessibility
         await expect(element).toBeAccessible();
     });
 });
